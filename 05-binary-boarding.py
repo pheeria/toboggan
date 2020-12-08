@@ -41,3 +41,10 @@ for r in range(10, 120):
         if tmp not in store:
             print(tmp)
 
+allocated = [s['seat_id'] for s in store]
+mn = min(allocated)
+mx = max(allocated)
+
+for i in range(mn, mx - mn):
+    if i not in allocated:
+        print(i)

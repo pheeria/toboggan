@@ -1,5 +1,5 @@
-<h1 align="center" style="font-variant: smallcaps;">
-  Toboggan
+<h1 align="center">
+  toboggan
   <br>
   🛷
 </h1>
