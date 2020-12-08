@@ -1,13 +1,14 @@
+from typing import List
 import time
 import json
 
-def get_json(num):
+def get_json(num: str) -> List[str]:
     result = []
     with open(f'./inputs/{num}.json') as file:
         result = json.load(file)
     return result
 
-def get_text(num):
+def get_text(num: str) -> List[str]:
     result = []
     with open(f'./inputs/{num}.txt') as file:
         result = file.read().splitlines()
