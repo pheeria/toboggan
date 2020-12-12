@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from utils import get_json
 
 input = get_json('09')

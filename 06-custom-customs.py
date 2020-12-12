@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from utils import get_text
 
 input = get_text('06') 
