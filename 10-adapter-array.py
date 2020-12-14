@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import utils.utils
-from utils.utils import get_json
+from utils import get_json
 
 
 input = get_json('10')
