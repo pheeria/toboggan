@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from utils import get_json
+from utils import get_json, measure
 
 
 input = get_json('10')
@@ -18,12 +18,34 @@ input = get_json('10')
 #     12,
 #     4,
 # ]
-diffs = { 1: 1, 2: 0, 3: 1}
+
 adapters = sorted(input)
-print(adapters)
+adapters = [0, *adapters, max(adapters) + 3]
 
-for i in range(1, len(adapters)):
-    diffs[adapters[i] - adapters[i - 1]] += 1
+@measure
+def part_one():
+    diffs = { 1: 0, 2: 0, 3: 0}
+    for i in range(1, len(adapters)):
+        diffs[adapters[i] - adapters[i - 1]] += 1
 
-print(diffs)
-print(diffs[1] * diffs[3])
+    print(diffs[1] * diffs[3])
+
+memo = {}
+def recursive_count(i):
+    if i == len(adapters) - 1:
+        return 1
+    if i in memo:
+        return memo[i]
+    result = 0
+    end = min(i + 4, len(adapters))
+    for j in range(i + 1, end):
+        try:
+            if adapters[j] - adapters[i] <= 3:
+                result += recursive_count(j)
+        except:
+            print(i, j)
+    memo[i] = result
+    return result
+
+print(recursive_count(0))
+
