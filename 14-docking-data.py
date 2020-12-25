@@ -12,7 +12,7 @@ input = get_text('14')
 
 def process(src, mask):
     result = ''
-    binary = str(bin(src)).lstrip('0b').rjust(36, '0')
+    binary = format(src, '036b')
 
     for i in range(36):
         if mask[i] == 'X':
@@ -42,7 +42,7 @@ def part_one():
 
 def floating(registry, mask):
     result = []
-    binary = str(bin(registry)).lstrip('0b').rjust(36, '0')
+    binary = format(registry, '036b')
     final_mask = ''
     powers = []
     for i in range(36):
