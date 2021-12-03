@@ -12,29 +12,29 @@
 # They offer you a second one if you can find three numbers in your expense
 # report that meet the same criteria.
 
-from utils import get_json, measure
+from ..utils import get_json, measure
 
-input = get_json('01')
-length = len(input)
+data = get_json('01')
+length = len(data)
 
 @measure
 def part_one_unsorted():
     for i in range(0, length - 1):
         for j in range(i + 1, length):
-            if input[i] + input[j] == 2020:
-                print(input[i] * input[j])
+            if data[i] + data[j] == 2020:
+                print(data[i] * data[j])
 
 @measure
 def part_two_unsorted():
     for i in range(0, length - 2):
         for j in range(i + 1, length - 1):
             for k in range(j + 1, length):
-                if input[i] + input[j] + input[k] == 2020:
-                    print(input[i] * input[j] * input[k])
+                if data[i] + data[j] + data[k] == 2020:
+                    print(data[i] * data[j] * data[k])
 
 @measure
 def part_one_sorted():
-    sorted_input = sorted(input)
+    sorted_input = sorted(data)
     for i in range(0, length - 1):
         for j in range(i + 1, length):
             if sorted_input[i] + sorted_input[j] == 2020:
@@ -42,7 +42,7 @@ def part_one_sorted():
 
 @measure
 def part_two_sorted():
-    sorted_input = sorted(input)
+    sorted_input = sorted(data)
     for i in range(0, length - 2):
         for j in range(i + 1, length - 1):
             for k in range(j + 1, length):
@@ -54,11 +54,11 @@ def part_one_single_loop():
     result = 0
     store = {}
     for i in range(0, length):
-        if input[i] in store:
-            result = store[input[i]]
+        if data[i] in store:
+            result = store[data[i]]
             break
         else:
-            store[2020 - input[i]] = (2020 - input[i]) * input[i]
+            store[2020 - data[i]] = (2020 - data[i]) * data[i]
     print(result)
 
 
