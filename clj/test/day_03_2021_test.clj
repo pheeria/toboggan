@@ -1,9 +1,8 @@
 (ns day-03-2021-test
   (:require
-    [clojure.test :refer [deftest is testing]]
-    [day-03-2021 :as toboggan]
-    [clojure.java.io :as io]))
-
+   [clojure.test :refer [deftest is testing]]
+   [day-03-2021 :as toboggan]
+   [clojure.java.io :as io]))
 
 (def report
   '("00100"
@@ -26,11 +25,11 @@
 (deftest part-1
   (testing "With the example input"
     (is (= 198 (toboggan/binary-multiplication report)))
-  (testing "With the actual input"
-    (is (= 3958484 (toboggan/binary-multiplication actual-input))))))
+    (testing "With the actual input"
+      (is (= 3958484 (toboggan/binary-multiplication actual-input))))))
 
 (deftest part-2
   (testing "With the example input"
-    (is (= 230 (toboggan/binary-multiplication report)))
-  (testing "With the actual input"
-    (is (= 1613181 (toboggan/binary-multiplication actual-input))))))
+    (is (= 230 (toboggan/second-binary-multiplication report)))
+    (testing "With the actual input"
+      (is (= 1613181 (toboggan/second-binary-multiplication actual-input))))))
