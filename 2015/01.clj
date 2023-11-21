@@ -1,4 +1,4 @@
-(use '[clojure.string :refer trim])
+(require '[clojure.string :refer [trim]])
 
 (def input (trim (slurp "01.txt")))
 
@@ -27,6 +27,6 @@
            (recur (dec counter) (inc position) (rest data))))))
 
 
-(part-one input)
-(part-one part-one-alternative)
-(part-two input)
+(println (part-one input))
+(println (part-one-alternative input))
+(println (part-two input))
