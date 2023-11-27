@@ -19,7 +19,7 @@ fi
 # use ${2} directly, since days in AoC are normal
 # but we store them zero prefixed
 curl --silent --location "https://adventofcode.com/${YEAR}/day/${2}/input" \
-    --cookie "session=${AOC_TOKEN}" --output "${YEAR}/${DAY}.txt"
+    --cookie "session=${AOC_TOKEN}" --create-dirs --output "${YEAR}/${DAY}.txt"
 
 cat > "${YEAR}/${DAY}.clj" << EOF
 (require '[clojure.string :as str])
