@@ -1,0 +1,62 @@
+(require '[clojure.string :as str]
+         '[clojure.pprint :refer [pprint]])
+
+(defn parse-op [text]
+  (let [t (str/replace text #" through " " ")
+        [op tt] (cond
+                  (str/starts-with? t "toggle")   [:toggle (str/replace t #"toggle " "")]
+                  (str/starts-with? t "turn on")  [:on (str/replace t #"turn on " "")]
+                  (str/starts-with? t "turn off") [:off (str/replace t #"turn off " "")])
+        parsed-coords (->> (str/split tt #" ")
+                        (map #(str/split % #","))
+                        flatten
+                        (map #(Integer/parseInt %))
+                        (zipmap [:fromx :fromy :tox :toy]))]
+  (into parsed-coords {:op op})))
+
+(def input
+  (-> "06.txt"
+      slurp
+      str/trim
+      str/split-lines))
+
+(def agrid
+  (to-array-2d (take 5
+             (repeat
+             (vec (take 5 (repeat false)))))))
+
+(def grid
+  (into {}
+        (zipmap (take 5 (range))
+                (repeat (into {}
+                              (zipmap (take 5 (range))
+                                      (repeat false)))))))
+
+(aget agrid 0 0)
+(aset agrid 0 0 true) 
+(aget agrid 4 4)
+(alength agrid)
+
+(pprint grid)
+(pprint (assoc-in grid [2 2] true))
+
+(defn part-one [stream]
+
+)
+
+(defn part-two [stream]
+
+)
+
+(println (part-one input))
+(println (part-two input))
+
+(part-one "")
+(part-two "")
+
+(parse-op (first input))
+
+
+toggle 461,550 through 564,900
+turn off 370,39 through 425,839
+turn off 464,858 through 833,915
