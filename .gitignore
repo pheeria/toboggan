@@ -153,3 +153,4 @@ pom.xml.asc
 .hgignore
 .hg/
 .lsp/
+.clj-kondo/
