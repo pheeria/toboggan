@@ -20,11 +20,6 @@
       str/trim
       str/split-lines))
 
-(def agrid
-  (to-array-2d (take 5
-             (repeat
-             (vec (take 5 (repeat false)))))))
-
 (def grid
   (into {}
         (zipmap (take 5 (range))
@@ -32,13 +27,15 @@
                               (zipmap (take 5 (range))
                                       (repeat false)))))))
 
-(aget agrid 0 0)
-(aset agrid 0 0 true) 
-(aget agrid 4 4)
-(alength agrid)
+(defn count-in-grid [g]
+  (->> g
+       vals
+       (map #(count (filter true? %)))
+       ))
 
-(pprint grid)
+(pprint (vals (flatten (vals grid))))
 (pprint (assoc-in grid [2 2] true))
+(pprint (count-in-grid (assoc-in grid [2 2] true)))
 
 (defn part-one [stream]
 
