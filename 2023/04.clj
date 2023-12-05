@@ -57,13 +57,16 @@
        (apply +)))
 
 (defn part-two [stream]
-  (let [cards (map parse-card stream)
-        maps (map-indexed #(vector %1 (hash-map :value %2 :copies 1)) cards)
-        dict (into {} maps)
-        final (reduce (fn [acc cur]
-                          (copy-cards acc cur (get acc cur))) dict (range (count cards)))]
+  (let [cards (map-indexed #(vector %1 (hash-map :value (parse-card %2) :copies 1)) stream)
+        dict (into {} cards)
+        final (reduce #(copy-cards %1 %2 (get %1 %2)) dict (range (count cards)))]
     (apply + (map :copies (vals final)))))
+
+(defn ppart-two [stream]
+  (let [cards (mapv #(hash-map :value (parse-card %) :copies 1) stream)
+        final (reduce #(copy-cards %1 %2 (get %1 %2)) cards (range (count cards)))]
+    (apply + (map :copies final))))
 
 (println (part-one input))
 (println (part-two input))
-
+(println (ppart-two input))
