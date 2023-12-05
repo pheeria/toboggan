@@ -43,15 +43,13 @@
           (remove #(or (= " " %) (empty? %))
                   (set/intersection winning elf's)))))
 
-(defn copy-cards [cards index current]
+(defn copy-cards [cards index {value :value copies :copies}]
   (loop [cs cards
          new-index (inc index)]
-    (let [value (:value current)
-          copies (:copies current)]
       (if (<= (- new-index index) value)
         (recur (update-in cs [new-index :copies] + copies)
                (inc new-index))
-        cs))))
+        cs)))
 
 (defn part-one [stream]
   (->> stream
