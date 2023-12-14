@@ -44,9 +44,9 @@
 (defn custom-compare [a b]
   (let [ath (get types (:hand a))
         bth (get types (:hand b))]
-    (if (not= ath bth)
-      (compare ath bth)
-      (compare-cards (:card a) (:card b)))))
+    (if (= ath bth)
+      (compare-cards (:card a) (:card b))
+      (compare ath bth))))
 
 (defn parse-card [line]
   (let [[card raw-bid] (str/split line #" ") 
@@ -62,7 +62,7 @@
                (= '(1 1 1 2) sorted) :one-pair
                (every? #(= 1 %) sorted) :high)
         ]
-    {:card card :freqs freqs :bid bid :hand hand}))
+    {:card card :bid bid :hand hand}))
 
 (def joker-order {
   \A 1
@@ -100,7 +100,6 @@
   (let [[card raw-bid] (str/split line #" ") 
         freqs (frequencies card)
         bid (Integer/parseInt raw-bid)
-        jokers (get freqs \J 0)
         sorted (sort (vals (dissoc freqs \J)))
         hand (cond
                (= '() sorted) :five
@@ -127,13 +126,15 @@
                (= '(1 1 1 2) sorted) :one-pair
                (= '(1 1 1 1 1) sorted) :high
         )]
-    {:card card :freqs freqs :bid bid :hand hand}))
+    {:card card :bid bid :hand hand}))
+
 (defn part-one [stream]
-  (let [length (count stream)
-        cards (map parse-card stream)
-        sorted (sort custom-compare cards)
-        indexed (map-indexed #(* (- length %1) (:bid %2)) sorted)]
-  (apply + indexed)))
+  (let [length (count stream)]
+    (->> stream
+         (map parse-card)
+         (sort custom-compare)
+         (map-indexed #(* (- length %1) (:bid %2)))
+         (apply +))))
 
 (defn part-two [stream]
   (let [length (count stream)
