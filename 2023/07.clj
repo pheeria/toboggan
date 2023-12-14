@@ -80,21 +80,20 @@
   \J 13
 })
 
-(defn compare-joker-cards [[a & as] [b & bs]]
-  (if (nil? a)
-    0
-    (let [a-order (get joker-order a)
-          b-order (get joker-order b)]
-      (if (= a-order b-order)
-        (compare-cards as bs)
-        (compare a-order b-order)))))
-
 (defn custom-joker-compare [a b]
   (let [ath (get types (:hand a))
         bth (get types (:hand b))]
     (if (not= ath bth)
       (compare ath bth)
-      (compare-joker-cards (:card a) (:card b)))))
+      (loop [[a & as] (:card a)
+             [b & bs] (:card b)]
+        (if (nil? a)
+          0
+          (let [a-order (get joker-order a)
+                b-order (get joker-order b)]
+            (if (= a-order b-order)
+              (recur as bs)
+              (compare a-order b-order))))))))
 
 (defn parse-joker-card [line]
   (let [[card raw-bid] (str/split line #" ") 
@@ -137,11 +136,12 @@
          (apply +))))
 
 (defn part-two [stream]
-  (let [length (count stream)
-        cards (map parse-joker-card stream)
-        sorted (sort custom-joker-compare cards)
-        indexed (map-indexed #(* (- length %1) (:bid %2)) sorted)]
-  (apply + indexed)))
+  (let [length (count stream)]
+    (->> stream
+         (map parse-joker-card)
+         (sort custom-joker-compare)
+         (map-indexed #(* (- length %1) (:bid %2)))
+         (apply +))))
 
 (println (part-one input))
 (println (part-two input))
