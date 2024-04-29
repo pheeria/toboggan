@@ -154,3 +154,5 @@ pom.xml.asc
 .hg/
 .lsp/
 .clj-kondo/
+
+*.txt
