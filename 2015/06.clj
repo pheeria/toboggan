@@ -30,8 +30,8 @@
 (defn count-in-grid [g]
   (->> g
        vals
-       (map #(count (filter true? %)))
-       ))
+       (map #(filter true? (vals %)))
+       count))
 
 (pprint (vals (flatten (vals grid))))
 (pprint (assoc-in grid [2 2] true))

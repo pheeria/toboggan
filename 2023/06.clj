@@ -37,3 +37,4 @@
 (println (part-one input))
 (println (part-two input))
 
+; try out binary search
